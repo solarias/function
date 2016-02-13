@@ -66,7 +66,7 @@ $ad["site"] = [
 		link:"http://solarias.github.io/dnf/anton.html",
 		type:"던전 앤 파이터",
 		id:"dnf_anton",
-		blog_link:"http://blog.naver.com/ansewo/220622652162"
+		blog_link:"http://blog.naver.com/ansewo/220622658643"
 	},
 	{
 		name:"안톤 에픽 장비 항아리 시뮬레이터",
@@ -87,7 +87,7 @@ $ad["site"] = [
 		link:"http://solarias.github.io/dnf/gangpock.html",
 		type:"던전 앤 파이터",
 		id:"dnf_gangpock",
-		blog_link:"http://blog.naver.com/ansewo/220622661595"
+		blog_link:"http://blog.naver.com/ansewo/220622663784"
 	},
 	{
 		name:"오늘의 던파 운세",
@@ -122,14 +122,14 @@ $ad["site"] = [
 		link:"http://solarias.github.io/dnf/worldcup.html",
 		type:"던전 앤 파이터",
 		id:"dnf_worldcup",
-		blog_link:"http://blog.naver.com/ansewo/220622663784"
+		blog_link:"http://blog.naver.com/ansewo/220622666872"
 	},
 	{
 		name:"에픽 메이커",
 		link:"http://solarias.github.io/epicMaker/index.html",
 		type:"던전 앤 파이터",
 		id:"dnf_epicMaker",
-		blog_link:"http://blog.naver.com/ansewo/220625251232"
+		blog_link:"http://blog.naver.com/ansewo/220622679923"
 	},
 	//====================================================================
 	//※ C-2. 일반 게임
