@@ -199,9 +199,9 @@ $ad["dropdown"] = document.createElement("select");
 					optgroup.appendChild(option);
 				}
 			}
+			//a-2. 생성한 그룹 적용
+			$ad["dropdown"].add(optgroup);
 		}
-		//b. 생성한 그룹 적용
-		$ad["dropdown"].add(optgroup);
 	}
 	//D-2-2. 태그에 추가
 	$ad["tags"].push($ad["dropdown"]);
