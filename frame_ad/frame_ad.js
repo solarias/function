@@ -147,12 +147,7 @@ $ad["site"] = [
 		type:"일반 게임",
 		id:"game_illustMD5",
 		blog_link:"http://blog.naver.com/ansewo/220622990916"
-	},
-	
-	
-	
-	//끝
-	{}
+	}
 ];
 
 
