@@ -93,14 +93,14 @@ $ad["site"] = [
 		name:"오늘의 던파 운세",
 		link:"http://solarias.github.io/dnf_jum/normal.html",
 		type:"던전 앤 파이터",
-		id:"dnf_jum",
+		id:"dnf_jum_normal",
 		blog_link:"http://blog.naver.com/ansewo/220622674684"
 	},
 	{
 		name:"마테카 고통 운세 스페셜",
 		link:"http://solarias.github.io/dnf_jum/mateka.html",
 		type:"던전 앤 파이터",
-		id:"dnf_jum",
+		id:"dnf_jum_mateka",
 		blog_link:"http://blog.naver.com/ansewo/220622674684"
 	},
 	{
