@@ -35,18 +35,21 @@
 	#frame_ad select {
 		margin-top:-2px;
 		margin-left:5px;
-		width:150px;
+		width:210px;
 		height:18px;
 		
 		border:1px gray solid;
 		
 		font-size:inherit;
 	}
-		#frame_ad select:hover {
-			border:1px white solid;
-			
-			cursor:pointer;
-			cursor:hand;
+			#frame_ad select:hover {
+				border:1px white solid;
+				
+				cursor:pointer;
+				cursor:hand;
+			}
+		#frame_ad select optgroup, #frame_ad select option {
+			font-size:inherit;
 		}
 	
 	#frame_ad h1 {
