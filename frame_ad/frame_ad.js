@@ -111,13 +111,6 @@ $ad["site"] = [
 		blog_link:"http://blog.naver.com/ansewo/220622676935"
 	},
 	{
-		name:"퍼펙트 헬 시뮬레이터",
-		link:"http://solarias.github.io/dnf/perfect_hell2.html",
-		type:"던전 앤 파이터",
-		id:"dnf_perfect_hell2",
-		blog_link:"http://blog.naver.com/ansewo/220625251232"
-	},
-	{
 		name:"던파 이상형 월드컵",
 		link:"http://solarias.github.io/dnf/worldcup.html",
 		type:"던전 앤 파이터",
