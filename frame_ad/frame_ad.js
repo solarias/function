@@ -126,7 +126,7 @@ $ad["site"] = [
 	},
 	{
 		name:"베키 어드벤처",
-		link:"http://solarias.github.io/epicMaker/beckey.html",
+		link:"http://solarias.github.io/dnf/beckey.html",
 		type:"던전 앤 파이터",
 		id:"dnf_beckey",
 		blog_link:"http://blog.naver.com/ansewo/220622679923"
