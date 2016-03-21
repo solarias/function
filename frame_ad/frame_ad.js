@@ -124,6 +124,13 @@ $ad["site"] = [
 		id:"dnf_epicMaker",
 		blog_link:"http://blog.naver.com/ansewo/220622679923"
 	},
+	{
+		name:"베키 어드벤처",
+		link:"http://solarias.github.io/epicMaker/beckey.html",
+		type:"던전 앤 파이터",
+		id:"dnf_beckey",
+		blog_link:"http://blog.naver.com/ansewo/220622679923"
+	},
 	//====================================================================
 	//※ C-2. 일반 게임
 	//====================================================================
@@ -205,30 +212,30 @@ $ad["email"] = document.createElement("h2");
 	$ad["email"].innerHTML = "(Contact : ansewo@naver.com)";
 	$ad["tags"].push($ad["email"]);
 
-	
+
 //D-4. 타이틀 & 블로그 링크
 	//D-4-1. 현재 사이트 찾아두기
 	for (var i = 0;i<$ad["site"].length;i++) {
 		if ($ad["site"][i].id == document.getElementById("frame_ad").className) {
 			var now = $ad["site"][i];
-			
+
 			break;
 		}
 	}
-	
+
 	//D-4-2. 타이틀 추가
 	$ad["title"] = document.createElement("h1");
 		$ad["title"].innerHTML = now["name"];
 		$ad["tags"].push($ad["title"]);
-	
+
 	//D-4-3. 블로그 추가
 	$ad["blog"] = document.createElement("a");
-		$ad["blog"].innerHTML = "설명 & 의견 남기기";
+		$ad["blog"].innerHTML = "패치내역 & 의견 남기기";
 		$ad["blog"].href = now["blog_link"];
 		$ad["blog"].target = "_blank";
 		$ad["tags"].push($ad["blog"]);
 
-		
+
 
 
 //===================================================================================================================================
