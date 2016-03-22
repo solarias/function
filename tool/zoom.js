@@ -342,7 +342,7 @@
 //===========================================================================
 //※ 화면 배율 자동 조절
 //===========================================================================
-document.addEventListener("DOMContentLoaded", function() {
+function resizing() {
 	//배율 체크
 	if (detectZoom.zoom() === 0) {
 		//크롬 : 'zoom'이 0으로 뜸 -> 'device' 활용
@@ -379,4 +379,12 @@ document.addEventListener("DOMContentLoaded", function() {
         wrapper.style.webkitTransformOrigin = "top";
         wrapper.style.msTransformOrigin = "top";
 		wrapper.style.transformOrigin = "top";
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+	resizing();
+	window.onresize = function() {
+		resizing();
+	}
 });
