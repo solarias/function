@@ -1,3 +1,5 @@
+/*jshint -W069*/
+
 ﻿(function() {
 
 
@@ -15,8 +17,7 @@ if (!Array.prototype.indexOf)
 	var len = this.length >>> 0;
 
 	var from = Number(arguments[1]) || 0;
-	from = (from < 0)
-		 ? Math.ceil(from)
+	from = (from < 0) ? Math.ceil(from)
 		 : Math.floor(from);
 	if (from < 0)
 	  from += len;
@@ -29,7 +30,7 @@ if (!Array.prototype.indexOf)
 	}
 	return -1;
   };
-};
+}
 
 
 //===================================================================================================================================
@@ -129,7 +130,7 @@ $ad["site"] = [
 		link:"http://solarias.github.io/dnf/beckey.html",
 		type:"던전 앤 파이터",
 		id:"dnf_beckey",
-		blog_link:"http://blog.naver.com/ansewo/220622679923"
+		blog_link:"http://blog.naver.com/ansewo/220662398108"
 	},
 	//====================================================================
 	//※ C-2. 일반 게임
@@ -252,11 +253,11 @@ for (var i=0;i<$ad["tags"].length;i++) {
 //※ F. 관련 사이트 이동 함수
 //===================================================================================================================================
 document.getElementById("frame_ad_dropdown").onchange = function() {
-	var yesno = confirm("관련 사이트로 이동하면 현재 기록이 모두 사라집니다.\n이동하시겠습니까?");
+	var yesno = confirm("관련 사이트로 이동하면 현재 기록이 모두 사라질 수도 있습니다.\n이동하시겠습니까?");
 	if (yesno) {
 		window.location.href = document.getElementById("frame_ad_dropdown").value;
 	}
-}
+};
 
 
 }())

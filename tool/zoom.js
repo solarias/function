@@ -85,8 +85,8 @@
         return {
             zoom: zoom,
             devicePxPerCssPx: zoom * devicePixelRatio()
-        };	    
-    }
+        };
+    };
 
 	/**
 	* For safari (same as chrome)
@@ -98,9 +98,9 @@
         return {
             zoom: zoom,
             devicePxPerCssPx: zoom * devicePixelRatio()
-        };	    
-    }
-	
+        };
+    };
+
 
     /**
      * Mobile WebKit
@@ -290,7 +290,7 @@
 		//safari
 		else if(Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0){
 			func = safari;
-		}	
+		}
         //Mobile Webkit
         else if ('orientation' in window && 'webkitRequestAnimationFrame' in window) {
             func = webkitMobile;
@@ -344,14 +344,14 @@
 //===========================================================================
 document.addEventListener("DOMContentLoaded", function() {
 	//배율 체크
-	if (detectZoom.zoom() == 0) {
+	if (detectZoom.zoom() === 0) {
 		//크롬 : 'zoom'이 0으로 뜸 -> 'device' 활용
 		var zoomLevel = detectZoom.device();
 	} else {
 		//나머지 브라우저
 		var zoomLevel = detectZoom.zoom();
 	}
-	
+
 	//브라우저 윈도우 너비 & 높이 체크
 	var w = Math.floor(window.innerWidth * zoomLevel);
 	if (document.getElementById("frame_ad")) {
@@ -359,19 +359,24 @@ document.addEventListener("DOMContentLoaded", function() {
 	} else {
 		var h = Math.floor(window.innerHeight * zoomLevel);
 	}
-	
+
 	//wrapper 배율 조절
 	var wrapper = document.getElementById("wrapper");
 	var ratio = wrapper.offsetWidth/wrapper.offsetHeight;
 		//가로가 길 경우
 		if (w/h <= ratio) {
-			wrapper.style.transform = "scale(" + (w / (wrapper.offsetWidth * zoomLevel)).toString() + "," + (w / (wrapper.offsetWidth * zoomLevel)).toString() + ")";
+            var transform = "scale(" + (w / (wrapper.offsetWidth * zoomLevel)).toString() + "," + (w / (wrapper.offsetWidth * zoomLevel)).toString() + ")";
+            wrapper.style.webkitTransform = transform;
+            wrapper.style.msTransform = transform;
+			wrapper.style.transform = transform;
 		//세로가 길 경우
 		} else {
-			wrapper.style.transform = "scale(" + (h / (wrapper.offsetHeight * zoomLevel)).toString() + "," + (h / (wrapper.offsetHeight * zoomLevel)).toString() + ")";
+            var transform = "scale(" + (h / (wrapper.offsetHeight * zoomLevel)).toString() + "," + (h / (wrapper.offsetHeight * zoomLevel)).toString() + ")"
+            wrapper.style.webkitTransform = transform;
+            wrapper.style.msTransform = transform;
+            wrapper.style.transform = transform;
 		}
+        wrapper.style.webkitTransformOrigin = "top";
+        wrapper.style.msTransformOrigin = "top";
 		wrapper.style.transformOrigin = "top";
 });
-
-
-
