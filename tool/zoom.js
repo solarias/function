@@ -342,15 +342,18 @@
 //===========================================================================
 //※ 화면 배율 자동 조절
 //===========================================================================
-function resizing() {
+function getZoomLevel() {
 	//배율 체크
 	if (detectZoom.zoom() === 0) {
 		//크롬 : 'zoom'이 0으로 뜸 -> 'device' 활용
-		var zoomLevel = detectZoom.device();
+		return detectZoom.device();
 	} else {
 		//나머지 브라우저
-		var zoomLevel = detectZoom.zoom();
+		return detectZoom.zoom();
 	}
+}
+
+function resizing(zoomLevel) {
 
 	//브라우저 윈도우 너비 & 높이 체크
 	var w = Math.floor(window.innerWidth * zoomLevel);
@@ -381,12 +384,22 @@ function resizing() {
 		wrapper.style.transformOrigin = "top";
 }
 
+function margin_resizing(zoomLevel) {
+    var wrapper = document.getElementById("wrapper");
+
+    var wi = window.innerWidth;
+    var wr = wrapper.offsetWidth;
+    var realWr = Math.floor(wr * zoomLevel);
+
+    wrapper.style.margin = "0px " + ((wi - wr)/2).toString() + "px";
+}
 
 document.addEventListener("DOMContentLoaded", function() {
-	resizing();
-    /*해상도 변경시 자동확대 : 비활성화
+	resizing(getZoomLevel());
+	margin_resizing(getZoomLevel());
+    //해상도 변경시 : 여백 재정렬
 	window.onresize = function() {
-		resizing();
-	}
-    */
+		margin_resizing(getZoomLevel());
+	};
+
 });
