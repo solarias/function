@@ -384,7 +384,9 @@ function resizing() {
 
 document.addEventListener("DOMContentLoaded", function() {
 	resizing();
+    /*해상도 변경시 자동확대 : 비활성화
 	window.onresize = function() {
 		resizing();
 	}
+    */
 });
