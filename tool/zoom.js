@@ -354,36 +354,37 @@ function getZoomLevel() {
 }
 
 function resizing(zoomLevel) {
-
 	//브라우저 윈도우 너비 & 높이 체크
-	var w = Math.floor(window.innerWidth * zoomLevel);
+	var w = Math.floor(window.innerWidth * zoomLevel);//너비
+    var h;//높이 : 차후 계산
 	if (document.getElementById("frame_ad")) {
-		var h = Math.floor((window.innerHeight - 26) * zoomLevel);
+		h = Math.floor((window.innerHeight - 26) * zoomLevel);
 	} else {
-		var h = Math.floor(window.innerHeight * zoomLevel);
+		h = Math.floor(window.innerHeight * zoomLevel);
 	}
 
 	//wrapper 배율 조절
 	var wrapper = document.getElementById("wrapper");
 	var ratio = wrapper.offsetWidth/wrapper.offsetHeight;
+    var transform;//적용할 변경값
 		//가로가 길 경우
 		if (w/h <= ratio) {
-            var transform = "scale(" + (w / (wrapper.offsetWidth * zoomLevel)).toString() + "," + (w / (wrapper.offsetWidth * zoomLevel)).toString() + ")";
-            wrapper.style.webkitTransform = transform;
-            wrapper.style.msTransform = transform;
-			wrapper.style.transform = transform;
+            transform = w / (wrapper.offsetWidth * zoomLevel);
 		//세로가 길 경우
 		} else {
-            var transform = "scale(" + (h / (wrapper.offsetHeight * zoomLevel)).toString() + "," + (h / (wrapper.offsetHeight * zoomLevel)).toString() + ")"
-            wrapper.style.webkitTransform = transform;
-            wrapper.style.msTransform = transform;
-            wrapper.style.transform = transform;
+            transform = h / (wrapper.offsetHeight * zoomLevel);
 		}
+        //확대만 실시, 축소는 X
+        transform = "scale(" + transform.toString() + "," + transform.toString() + ")";
+        wrapper.style.webkitTransform = transform;
+        wrapper.style.msTransform = transform;
+        wrapper.style.transform = transform;
         wrapper.style.webkitTransformOrigin = "top";
         wrapper.style.msTransformOrigin = "top";
 		wrapper.style.transformOrigin = "top";
 }
 
+/* 여백 자동계산 : 일단 하지 말기
 function margin_resizing(zoomLevel) {
     var wrapper = document.getElementById("wrapper");
 
@@ -393,28 +394,26 @@ function margin_resizing(zoomLevel) {
 
     wrapper.style.margin = "0px " + ((wi - wr)/2).toString() + "px";
 }
+*/
+function hideAddressBar() {
+    if (!window.location.hash) {
+        if (document.height < window.outerHeight) {
+            document.body.style.height = (window.outerHeight + 50) + 'px';
+        }
 
-function hideAddressBar()
-{
-  if(!window.location.hash)
-  {
-      if(document.height < window.outerHeight)
-      {
-          document.body.style.height = (window.outerHeight + 50) + 'px';
-      }
-
-      setTimeout( function(){ window.scrollTo(0, 1); }, 50 );
-  }
+        setTimeout( function(){
+            window.scrollTo(0, 1);
+            resizing(getZoomLevel());
+        }, 50 );
+    }
 }
 
-window.addEventListener("load", function(){ if(!window.pageYOffset){ hideAddressBar(); } } );
-window.addEventListener("orientationchange", hideAddressBar );
 
+//화면 자동확대(축소는 X)
 document.addEventListener("DOMContentLoaded", function() {
+    if (!window.pageYOffset) {
+        hideAddressBar();
+    }
 	resizing(getZoomLevel());
-	margin_resizing(getZoomLevel());
-    //해상도 변경시 : 여백 재정렬
-	window.onresize = function() {
-		margin_resizing(getZoomLevel());
-	};
 });
+window.addEventListener("orientationchange", hideAddressBar );
