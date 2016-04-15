@@ -410,11 +410,13 @@ function hideAddressBar() {
 
 
 //화면 자동확대(축소는 X)
+/*
 document.addEventListener("DOMContentLoaded", function() {
     if (!window.pageYOffset) {
         hideAddressBar();
     } else {
-	       resizing(getZoomLevel());
+        resizing(getZoomLevel());
     }
 });
 window.addEventListener("orientationchange", hideAddressBar );
+*/
