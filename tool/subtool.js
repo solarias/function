@@ -67,6 +67,27 @@ function clearSelect(selectbox)	{
 }
 
 
+//DeepCopy
+function deepCopy (dupeObj) {
+	var retObj = new Object();
+	if (typeof(dupeObj) == 'object') {
+		if (typeof(dupeObj.length) != 'undefined')
+			var retObj = new Array();
+		for (var objInd in dupeObj) {	
+			if (typeof(dupeObj[objInd]) == 'object') {
+				retObj[objInd] = deepCopy(dupeObj[objInd]);
+			} else if (typeof(dupeObj[objInd]) == 'string') {
+				retObj[objInd] = dupeObj[objInd];
+			} else if (typeof(dupeObj[objInd]) == 'number') {
+				retObj[objInd] = dupeObj[objInd];
+			} else if (typeof(dupeObj[objInd]) == 'boolean') {
+				((dupeObj[objInd] == true) ? retObj[objInd] = true : retObj[objInd] = false);
+			}
+		}
+	}
+	return retObj;
+}
+
 //천단위 콤마 표시 (출처 : http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript)
 function thousand(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
