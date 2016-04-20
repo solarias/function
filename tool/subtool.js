@@ -39,6 +39,107 @@ if("document" in self){if(!("classList" in document.createElement("_"))){(functi
 
 //getComputedStyle 호환용 (대상 : IE8)
 !('getComputedStyle' in this) && (this.getComputedStyle=(function (){function getPixelSize(element, style, property, fontSize){varsizeWithSuffix=style[property],size=parseFloat(sizeWithSuffix),suffix=sizeWithSuffix.split(/\d/)[0],rootSize;fontSize=fontSize !=null ? fontSize : /%|em/.test(suffix) && element.parentElement ? getPixelSize(element.parentElement, element.parentElement.currentStyle, 'fontSize', null) : 16;rootSize=property=='fontSize' ? fontSize : /width/i.test(property) ? element.clientWidth : element.clientHeight;return (suffix=='em') ? size * fontSize : (suffix=='in') ? size * 96 : (suffix=='pt') ? size * 96 / 72 : (suffix=='%') ? size / 100 * rootSize : size;}function setShortStyleProperty(style, property){varborderSuffix=property=='border' ? 'Width' : '',t=property + 'Top' + borderSuffix,r=property + 'Right' + borderSuffix,b=property + 'Bottom' + borderSuffix,l=property + 'Left' + borderSuffix;style[property]=(style[t]==style[r]==style[b]==style[l] ? [style[t]]: style[t]==style[b] && style[l]==style[r] ? [style[t], style[r]]: style[l]==style[r] ? [style[t], style[r], style[b]]: [style[t], style[r], style[b], style[l]]).join(' ');}function CSSStyleDeclaration(element){varcurrentStyle=element.currentStyle,style=this,fontSize=getPixelSize(element, currentStyle, 'fontSize', null);for (property in currentStyle){if (/width|height|margin.|padding.|border.+W/.test(property) && style[property] !=='auto'){style[property]=getPixelSize(element, currentStyle, property, fontSize) + 'px';}else if (property==='styleFloat'){style['float']=currentStyle[property];}else{style[property]=currentStyle[property];}}setShortStyleProperty(style, 'margin');setShortStyleProperty(style, 'padding');setShortStyleProperty(style, 'border');style.fontSize=fontSize + 'px';return style;}CSSStyleDeclaration.prototype={constructor: CSSStyleDeclaration,getPropertyPriority: function (){},getPropertyValue: function ( prop ){return this[prop] || '';},item: function (){},removeProperty: function (){},setProperty: function (){},getPropertyCSSValue: function (){}};function getComputedStyle(element){return new CSSStyleDeclaration(element);}return getComputedStyle;})(this));
+
+//=================================================================================================================
+//※ 함수 - requestTimeout 시리즈
+//=================================================================================================================
+//기본 함수(requestAnimFrame)
+window.requestAnimFrame = (function() {
+	return  window.requestAnimationFrame       ||
+			window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame    ||
+			window.oRequestAnimationFrame      ||
+			window.msRequestAnimationFrame     ||
+			function(/* function */ callback, /* DOMElement */ element){
+				window.setTimeout(callback, 1000 / 60);
+			};
+})();
+//requestTimeout (setTimeout 대체)
+window.requestTimeout = function(fn, delay) {
+	if( !window.requestAnimationFrame      	&&
+		!window.webkitRequestAnimationFrame &&
+		!(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
+		!window.oRequestAnimationFrame      &&
+		!window.msRequestAnimationFrame)
+			return window.setTimeout(fn, delay);
+
+	var start = new Date().getTime(),
+		handle = new Object();
+
+	function loop(){
+		var current = new Date().getTime(),
+			delta = current - start;
+
+		if (delta >= delay) {
+			fn.call();
+		} else {
+			handle.value = requestAnimFrame(loop);
+		}
+	};
+
+	handle.value = requestAnimFrame(loop);
+	return handle;
+};
+//requestInterval (setInterval 대체)
+window.requestInterval = function(fn, delay) {
+	if( !window.requestAnimationFrame       &&
+		!window.webkitRequestAnimationFrame &&
+		!(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
+		!window.oRequestAnimationFrame      &&
+		!window.msRequestAnimationFrame)
+			return window.setInterval(fn, delay);
+
+	var start = new Date().getTime(),
+		handle = new Object();
+
+	function loop() {
+		var current = new Date().getTime(),
+			delta = current - start;
+
+		if(delta >= delay) {
+			fn.call();
+			start = new Date().getTime();
+		}
+
+		handle.value = requestAnimFrame(loop);
+	}
+
+	handle.value = requestAnimFrame(loop);
+	return handle;
+};
+//clearRequestTimeout (requestTimeout 중단)
+window.clearRequestTimeout = function(handle) {
+	if (handle) {//handle이 부여되었을 때만 작동
+		//1. clear 함수 실행
+			window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
+			window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
+			window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
+			window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
+			window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle.value) :
+			window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
+			clearTimeout(handle);
+		//2. handle 에 null 부여 (작동/중지여부 기억)
+		handle = null;
+	}
+};
+//clearRequestInterval (requestInterval 중단)
+window.clearRequestInterval = function(handle) {
+	if (handle) {//handle이 부여되었을 때만 clear 함수 실행
+		//1. clear 함수 실행
+			window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
+			window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
+			window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
+			window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
+			window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle.value) :
+			window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
+			clearInterval(handle);
+		//2. handle 에 null 부여 (작동/중지여부 기억)
+			handle = null;
+
+	}
+};
+
+
 //=================================================================================================================
 //※ 함수 - Type 1 (기존 개체에 추가)
 //=================================================================================================================
