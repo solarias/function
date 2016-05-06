@@ -41,103 +41,8 @@ if("document" in self){if(!("classList" in document.createElement("_"))){(functi
 !('getComputedStyle' in this) && (this.getComputedStyle=(function (){function getPixelSize(element, style, property, fontSize){varsizeWithSuffix=style[property],size=parseFloat(sizeWithSuffix),suffix=sizeWithSuffix.split(/\d/)[0],rootSize;fontSize=fontSize !=null ? fontSize : /%|em/.test(suffix) && element.parentElement ? getPixelSize(element.parentElement, element.parentElement.currentStyle, 'fontSize', null) : 16;rootSize=property=='fontSize' ? fontSize : /width/i.test(property) ? element.clientWidth : element.clientHeight;return (suffix=='em') ? size * fontSize : (suffix=='in') ? size * 96 : (suffix=='pt') ? size * 96 / 72 : (suffix=='%') ? size / 100 * rootSize : size;}function setShortStyleProperty(style, property){varborderSuffix=property=='border' ? 'Width' : '',t=property + 'Top' + borderSuffix,r=property + 'Right' + borderSuffix,b=property + 'Bottom' + borderSuffix,l=property + 'Left' + borderSuffix;style[property]=(style[t]==style[r]==style[b]==style[l] ? [style[t]]: style[t]==style[b] && style[l]==style[r] ? [style[t], style[r]]: style[l]==style[r] ? [style[t], style[r], style[b]]: [style[t], style[r], style[b], style[l]]).join(' ');}function CSSStyleDeclaration(element){varcurrentStyle=element.currentStyle,style=this,fontSize=getPixelSize(element, currentStyle, 'fontSize', null);for (property in currentStyle){if (/width|height|margin.|padding.|border.+W/.test(property) && style[property] !=='auto'){style[property]=getPixelSize(element, currentStyle, property, fontSize) + 'px';}else if (property==='styleFloat'){style['float']=currentStyle[property];}else{style[property]=currentStyle[property];}}setShortStyleProperty(style, 'margin');setShortStyleProperty(style, 'padding');setShortStyleProperty(style, 'border');style.fontSize=fontSize + 'px';return style;}CSSStyleDeclaration.prototype={constructor: CSSStyleDeclaration,getPropertyPriority: function (){},getPropertyValue: function ( prop ){return this[prop] || '';},item: function (){},removeProperty: function (){},setProperty: function (){},getPropertyCSSValue: function (){}};function getComputedStyle(element){return new CSSStyleDeclaration(element);}return getComputedStyle;})(this));
 
 //=================================================================================================================
-//※ 함수 - requestTimeout 시리즈
+//※ 함수 - setTimeout 통합 -> addTimer, playTimer, removeTimer, addInterval, removeInterval
 //=================================================================================================================
-//기본 함수(requestAnimFrame)
-window.requestAnimFrame = (function() {
-	return  window.requestAnimationFrame       ||
-			window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame    ||
-			window.oRequestAnimationFrame      ||
-			window.msRequestAnimationFrame     ||
-			function(/* function */ callback, /* DOMElement */ element){
-				window.setTimeout(callback, 1000 / 60);
-			};
-})();
-//requestTimeout (setTimeout 대체)
-window.requestTimeout = function(fn, delay) {
-	if( !window.requestAnimationFrame      	&&
-		!window.webkitRequestAnimationFrame &&
-		!(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
-		!window.oRequestAnimationFrame      &&
-		!window.msRequestAnimationFrame)
-			return window.setTimeout(fn, delay);
-
-	var start = new Date().getTime(),
-		handle = new Object();
-
-	function loop(){
-		var current = new Date().getTime(),
-			delta = current - start;
-
-		if (delta >= delay) {
-			fn.call();
-		} else {
-			handle.value = requestAnimFrame(loop);
-		}
-	};
-
-	handle.value = requestAnimFrame(loop);
-	return handle;
-};
-//requestInterval (setInterval 대체)
-window.requestInterval = function(fn, delay) {
-	if( !window.requestAnimationFrame       &&
-		!window.webkitRequestAnimationFrame &&
-		!(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
-		!window.oRequestAnimationFrame      &&
-		!window.msRequestAnimationFrame)
-			return window.setInterval(fn, delay);
-
-	var start = new Date().getTime(),
-		handle = new Object();
-
-	function loop() {
-		var current = new Date().getTime(),
-			delta = current - start;
-
-		if(delta >= delay) {
-			fn.call();
-			start = new Date().getTime();
-		}
-
-		handle.value = requestAnimFrame(loop);
-	}
-
-	handle.value = requestAnimFrame(loop);
-	return handle;
-};
-//clearRequestTimeout (requestTimeout 중단)
-window.clearRequestTimeout = function(handle) {
-	if (handle) {//handle이 부여되었을 때만 작동
-		//1. clear 함수 실행
-			window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
-			window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
-			window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
-			window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
-			window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle.value) :
-			window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
-			clearTimeout(handle);
-		//2. handle 에 null 부여 (작동/중지여부 기억)
-		handle = null;
-	}
-};
-//clearRequestInterval (requestInterval 중단)
-window.clearRequestInterval = function(handle) {
-	if (handle) {//handle이 부여되었을 때만 clear 함수 실행
-		//1. clear 함수 실행
-			window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
-			window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
-			window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
-			window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
-			window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle.value) :
-			window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
-			clearInterval(handle);
-		//2. handle 에 null 부여 (작동/중지여부 기억)
-			handle = null;
-
-	}
-};
 
 
 //=================================================================================================================
@@ -166,21 +71,40 @@ Array.prototype.min = function() {
     //=================================================================================================================
     //※ 구조물 조절
     //=================================================================================================================
+    //로컬스토리지 object처럼 활용
+    function localStore(key, obj) {
+        return window.localStorage.setItem(key, JSON.stringify(obj));
+    }
+    function localGet(key) {
+        return JSON.parse(window.localStorage.getItem(key));
+    }
+
     //배열&오브젝트 복제
     function deepCopy (dupeObj) {
+        //null : 그냥 반환
+        if (dupeObj === null) return dupeObj;
+        //undefined : 그냥 반환
+        if (dupeObj === undefined) return dupeObj;
+        //문자열 : 그냥 반환
+        if (typeof(dupeObj) === "string") return dupeObj;
+        //숫자 : 그냥 반환
+        if (typeof(dupeObj) === "number") return dupeObj;
+        //불리언 : 그냥 반환
+        if (typeof(dupeObj) === "boolean") return dupeObj;
+        //나머지 : object로 취급
         var retObj = new Object();
-        if (typeof(dupeObj) == 'object') {
-            if (typeof(dupeObj.length) != 'undefined')
+        if (typeof(dupeObj) === 'object') {
+            if (typeof(dupeObj.length) !== 'undefined')
                 var retObj = new Array();
             for (var objInd in dupeObj) {
-                if (typeof(dupeObj[objInd]) == 'object') {
+                if (typeof(dupeObj[objInd]) === 'object') {
                     retObj[objInd] = deepCopy(dupeObj[objInd]);
-                } else if (typeof(dupeObj[objInd]) == 'string') {
+                } else if (typeof(dupeObj[objInd]) === 'string') {
                     retObj[objInd] = dupeObj[objInd];
-                } else if (typeof(dupeObj[objInd]) == 'number') {
+                } else if (typeof(dupeObj[objInd]) === 'number') {
                     retObj[objInd] = dupeObj[objInd];
-                } else if (typeof(dupeObj[objInd]) == 'boolean') {
-                    ((dupeObj[objInd] == true) ? retObj[objInd] = true : retObj[objInd] = false);
+                } else if (typeof(dupeObj[objInd]) === 'boolean') {
+                    ((dupeObj[objInd] === true) ? retObj[objInd] = true : retObj[objInd] = false);
                 }
             }
         }
@@ -206,12 +130,25 @@ Array.prototype.min = function() {
         return array;
     }
 
+    //오브젝트 item 수 파악
+    function countProperties(obj) {
+        var count = 0;
 
+        for(var prop in obj) {
+            if(obj.hasOwnProperty(prop))
+                ++count;
+        }
+
+        return count;
+    }
     //=================================================================================================================
     //※ 수 관련
     //=================================================================================================================
     //천단위 콤마 표시 (출처 : http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript)
     function thousand(num) {
+        //null, undefined : "0" 리턴
+        if (!num) return "0";
+
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
@@ -234,6 +171,9 @@ Array.prototype.min = function() {
 
     //만단위 한글로 전환 (출처 : http://kin.naver.com/qna/detail.nhn?d1id=1&dirId=1040202&docId=159019083&qb=amF2YXNjcmlwdCDsiKvsnpAgNOuLqOychCDtlZzquIA=&enc=utf8&section=kin&rank=2&search_sort=0&spq=0&pid=R6VWNc5Y7vKssb7f6YZsssssssd-312648&sid=UKssqHJvLDEAAC0QENA)
     function setWon(pWon) {
+        //null, undefined : "0" 리턴
+        if (!pWon) return "0";
+
         var won  = pWon.toString();
         var arrWon  = ["", "만 ", "억 ", "조 ", "경 ", "해 ", "자 ", "양 ", "구 ", "간 ", "정 "];
         var changeWon = "";
@@ -260,11 +200,25 @@ Array.prototype.min = function() {
 
 
     //=================================================================================================================
-    //※ 기타
+    //※ input 계열
     //=================================================================================================================
+    //value로 select문 검색
+    function indexSelectByValue(selectbox, value)	{
+        for (var i = selectbox.options.length-1;i>=0;i--) {
+            if (selectbox.options[i].value === value) {
+                return i;
+            }
+        }
+    }
+
     //특정 select 비우기
     function clearSelect(selectbox)	{
         for (var i = selectbox.options.length-1;i>=0;i--) {
             selectbox.remove(i);
         }
     }
+
+
+    //=================================================================================================================
+    //※ 기타
+    //=================================================================================================================
