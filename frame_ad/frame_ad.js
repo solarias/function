@@ -138,7 +138,7 @@ $ad["site"] = [
 	{
 		name:"일러스트 전투력 측정기",
 		link:"http://solarias.github.io/dnf/power_level.html",
-		type:"일반 작",
+		type:"일반 게임",
 		id:"game_power_level",
 		blog_link:"http://blog.naver.com/ansewo/220622983505"
 	},
@@ -149,13 +149,6 @@ $ad["site"] = [
 		id:"game_illustMD5",
 		blog_link:"http://blog.naver.com/ansewo/220622990916"
 	},
-    {
-		name:"피파온라인3 이적 시장 수수료 계산기",
-		link:"http://solarias.github.io/dnf/FIFAcal.html",
-		type:"일반 게임",
-		id:"game_illustMD5",
-		blog_link:"http://blog.naver.com/ansewo/220622990916"
-    },
 	//====================================================================
 	//※ C-3. 기타 작품
 	//====================================================================
