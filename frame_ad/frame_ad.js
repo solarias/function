@@ -241,7 +241,7 @@ $ad["email"] = document.createElement("h2");
 
 	//D-4-3. 블로그 추가
 	$ad["blog"] = document.createElement("a");
-		$ad["blog"].innerHTML = "패치내역 & 의견 남기기";
+		$ad["blog"].innerHTML = "의견 남기기";
 		$ad["blog"].href = now["blog_link"];
 		$ad["blog"].target = "_blank";
 		$ad["tags"].push($ad["blog"]);
