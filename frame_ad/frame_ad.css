@@ -4,18 +4,18 @@
 
 #frame_ad {
 	overflow:hidden;
-	
+
 	padding:3px 10px;
-	
+
 	width:100%;
 	height:21px;
-	
+
 	background-color:#221F18;
 	border-bottom:1px red outset;
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;
-	
+
 	color:white;
 	font-size:12px;
 	font-weight:bold;
@@ -23,50 +23,59 @@
 	/*태그 정렬*/
 	#frame_ad p, #frame_ad select, #frame_ad h1, #frame_ad a {
 		float:left;
-		
+
 		display:block;
 	}
-	
+
 	#frame_ad p {
 		font-size:inherit;
 		font-weight:inherit;
 	}
-	
+
 	#frame_ad select {
 		margin-top:-2px;
 		margin-left:5px;
 		width:210px;
 		height:18px;
-		
+
 		border:1px gray solid;
-		
+
 		font-size:inherit;
 	}
 			#frame_ad select:hover {
 				border:1px white solid;
-				
+
 				cursor:pointer;
 				cursor:hand;
 			}
 		#frame_ad select optgroup, #frame_ad select option {
 			font-size:inherit;
 		}
-	
+
 	#frame_ad h1 {
 		margin-left:calc(50% - 100px - 233px);
 		width:200px;
-		
-		color:gray;
+
+		color:orange;
 		font-size:inherit;
 		font-weight:inherit;
 		text-align:center;
-		
+
 		display:none;
 	}
-	
+		#frame_ad h1:hover {
+			cursor:pointer;
+			cursor:hand;
+
+			text-decoration:underline;
+		}
+		#frame_ad h1:active {
+			color:red;
+		}
+
 	#frame_ad a {
 		float:right;
-		
+
 		color:aqua;
 		font-size:inherit;
 		font-weight:inherit;
@@ -75,12 +84,12 @@
 		#frame_ad a:hover {
 			color:red;
 		}
-	
+
 	#frame_ad h2 {
 		float:right;
-		
+
 		margin-left:5px;
-		
+
 		font-size:inherit;
 		font-weight:inherit;
 	}

@@ -234,10 +234,11 @@ $ad["email"] = document.createElement("h2");
 		}
 	}
 
-	//D-4-2. 타이틀 추가
-	$ad["title"] = document.createElement("h1");
-		$ad["title"].innerHTML = now["name"];
-		$ad["tags"].push($ad["title"]);
+	//D-4-2. 오류메시지 추가
+	$ad["error"] = document.createElement("h1");
+        $ad["error"].id = "frame_ad_error";
+		$ad["error"].innerHTML = "오류 발생! (자세히 보기)";
+		$ad["tags"].push($ad["error"]);
 
 	//D-4-3. 블로그 추가
 	$ad["blog"] = document.createElement("a");
@@ -245,6 +246,7 @@ $ad["email"] = document.createElement("h2");
 		$ad["blog"].href = now["blog_link"];
 		$ad["blog"].target = "_blank";
 		$ad["tags"].push($ad["blog"]);
+
 
 
 
@@ -269,5 +271,25 @@ document.getElementById("frame_ad_dropdown").onchange = function() {
 	}
 };
 
+//===================================================================================================================================
+//※ G. 오류 메시지 출력
+//===================================================================================================================================
 
-}())
+window.addEventListener("error",function (errorMsg, url, lineNumber, column, errorObj) {
+    //오류 메시지 기억
+    throw new Error("하하하! 매복이다!");
+    console.log(errorMsg);
+    var _message = 'Error: ' + errorMsg + ' / Script: ' + url + ' Line: ' + lineNumbe + ' Column: ' + column + ' StackTrace: ' +  errorObj;
+
+    //출력 준비
+    document.getElementById("frame_ad_error").style.display = "inline";
+    document.getElementById("frame_ad_error").onclick = function() {
+        prompt("가장 최근에 발생한 오류 코드입니다. 해당 코드를 제작자에게 알려주시면 큰 도움이 됩니다.", _message);
+    };
+    //
+});
+
+widow.onerror = function () {
+};
+
+}());
