@@ -274,10 +274,9 @@ document.getElementById("frame_ad_dropdown").onchange = function() {
 //===================================================================================================================================
 //※ G. 오류 메시지 출력
 //===================================================================================================================================
-
+/*
 window.addEventListener("error",function (errorMsg, url, lineNumber, column, errorObj) {
     //오류 메시지 기억
-    throw new Error("하하하! 매복이다!");
     console.log(errorMsg);
     var _message = 'Error: ' + errorMsg + ' / Script: ' + url + ' Line: ' + lineNumbe + ' Column: ' + column + ' StackTrace: ' +  errorObj;
 
@@ -291,5 +290,5 @@ window.addEventListener("error",function (errorMsg, url, lineNumber, column, err
 
 widow.onerror = function () {
 };
-
+*/
 }());
