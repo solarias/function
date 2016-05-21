@@ -274,21 +274,6 @@ document.getElementById("frame_ad_dropdown").onchange = function() {
 //===================================================================================================================================
 //※ G. 오류 메시지 출력
 //===================================================================================================================================
-/*
-window.addEventListener("error",function (errorMsg, url, lineNumber, column, errorObj) {
-    //오류 메시지 기억
-    console.log(errorMsg);
-    var _message = 'Error: ' + errorMsg + ' / Script: ' + url + ' Line: ' + lineNumbe + ' Column: ' + column + ' StackTrace: ' +  errorObj;
+//차후에 추가(방법을 모르겠음)
 
-    //출력 준비
-    document.getElementById("frame_ad_error").style.display = "inline";
-    document.getElementById("frame_ad_error").onclick = function() {
-        prompt("가장 최근에 발생한 오류 코드입니다. 해당 코드를 제작자에게 알려주시면 큰 도움이 됩니다.", _message);
-    };
-    //
-});
-
-widow.onerror = function () {
-};
-*/
 }());
