@@ -43,6 +43,8 @@ if("document" in self){if(!("classList" in document.createElement("_"))){(functi
 //addEventLister 호환용 (대상 : IE6~8)
 (function(win, doc){if(win.addEventListener)return;//No need to polyfillfunction docHijack(p){var old=doc[p];doc[p]=function(v){return addListen(old(v))}}function addEvent(on, fn, self){return (self=this).attachEvent('on' + on, function(e){var e=e || win.event;e.preventDefault=e.preventDefault || function(){e.returnValue=false}e.stopPropagation=e.stopPropagation || function(){e.cancelBubble=true}fn.call(self, e);});}function addListen(obj, i){if(i=obj.length)while(i--)obj[i].addEventListener=addEvent;else obj.addEventListener=addEvent;return obj;}addListen([doc, win]);if('Element' in win)win.Element.prototype.addEventListener=addEvent;//IE8else{//IE < 8doc.attachEvent('onreadystatechange', function(){addListen(doc.all)});//Make sure we also init at domReadydocHijack('getElementsByTagName');docHijack('getElementById');docHijack('createElement');addListen(doc.all);}})(window, document);
 
+//isArray 호환용 (대상 : IE8)
+if (!Array.isArray){Array.isArray=function(arg){return Object.prototype.toString.call(arg)==='[object Array]';};}
 //=================================================================================================================
 //※ 함수 - setTimeout 통합 -> addTimer, playTimer, removeTimer, addInterval, removeInterval
 //=================================================================================================================
