@@ -10,9 +10,7 @@ if (!Array.prototype.indexOf)
     var len = this.length >>> 0;
 
     var from = Number(arguments[1]) || 0;
-    from = (from < 0)
-         ? Math.ceil(from)
-         : Math.floor(from);
+    from = (from < 0) ? Math.ceil(from) : Math.floor(from);
     if (from < 0)
       from += len;
 
@@ -42,11 +40,19 @@ if("document" in self){if(!("classList" in document.createElement("_"))){(functi
 
 //addEventLister 호환용 (대상 : IE6~8)
 !function(e,t){function n(e){var n=t[e];t[e]=function(e){return o(n(e))}}function a(t,n,a){return(a=this).attachEvent("on"+t,function(t){var t=t||e.event;t.preventDefault=t.preventDefault||function(){t.returnValue=!1},t.stopPropagation=t.stopPropagation||function(){t.cancelBubble=!0},n.call(a,t)})}function o(e,t){if(t=e.length)for(;t--;)e[t].addEventListener=a;else e.addEventListener=a;return e}e.addEventListener||(o([t,e]),"Element"in e?e.Element.prototype.addEventListener=a:(t.attachEvent("onreadystatechange",function(){o(t.all)}),n("getElementsByTagName"),n("getElementById"),n("createElement"),o(t.all)))}(window,document);
+
 //isArray 호환용 (대상 : IE8)
 if (!Array.isArray){Array.isArray=function(arg){return Object.prototype.toString.call(arg)==='[object Array]';};}
+
+
+
 //=================================================================================================================
 //※ 함수 - setTimeout 통합 -> addTimer, playTimer, removeTimer, addInterval, removeInterval
 //=================================================================================================================
+
+
+
+
 
 
 //=================================================================================================================
