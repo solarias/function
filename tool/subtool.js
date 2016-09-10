@@ -47,13 +47,32 @@ if (!Array.isArray){Array.isArray=function(arg){return Object.prototype.toString
 
 
 //=================================================================================================================
-//※ 함수 - setTimeout 통합 -> addTimer, playTimer, removeTimer, addInterval, removeInterval
+//※ 함수 - API에서 불러오기
 //=================================================================================================================
-
-
-
-
-
+function loadJSON(path, success, error)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                if (success)
+                    success(JSON.parse(xhr.responseText));
+            } else {
+                if (error)
+                    error(xhr);
+            }
+        }
+    };
+    xhr.open("GET", path, true);
+    xhr.send();
+}
+/*활용밥
+loadJSON('my-file.json',
+         function(data) { console.log(data); },
+         function(xhr) { console.error(xhr); }
+);
+*/
 
 //=================================================================================================================
 //※ 함수 - 기존 개체에 기능 추가
