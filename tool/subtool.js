@@ -47,32 +47,9 @@ if (!Array.isArray){Array.isArray=function(arg){return Object.prototype.toString
 
 
 //=================================================================================================================
-//※ 함수 - API에서 불러오기
+//※ 함수 - requst시리즈
 //=================================================================================================================
-function loadJSON(path, success, error)
-{
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                if (success)
-                    success(JSON.parse(xhr.responseText));
-            } else {
-                if (error)
-                    error(xhr);
-            }
-        }
-    };
-    xhr.open("GET", path, true);
-    xhr.send();
-}
-/*활용밥
-loadJSON('my-file.json',
-         function(data) { console.log(data); },
-         function(xhr) { console.error(xhr); }
-);
-*/
+
 
 //=================================================================================================================
 //※ 함수 - 기존 개체에 기능 추가
@@ -231,7 +208,7 @@ function seriesOnOff(base, option, series) {
 
 
 //=================================================================================================================
-//※ 함수 - 개체 컨트롤
+//※ 함수 - DOM 선택자
 //=================================================================================================================
     //DOM 선택자
     function $(parameter) {
@@ -243,8 +220,34 @@ function seriesOnOff(base, option, series) {
 
 
     //=================================================================================================================
-    //※ 구조물 조절
+    //※ 함수 - 배열, 오브젝트, JSON, 로컬스토리지 등
     //=================================================================================================================
+    //URL에서 JSON 불러오시 (GET 방식)
+    function loadJSON(path, success, error)
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function()
+        {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    if (success)
+                        success(JSON.parse(xhr.responseText));
+                } else {
+                    if (error)
+                        error(xhr);
+                }
+            }
+        };
+        xhr.open("GET", path, true);
+        xhr.send();
+    }
+    /*활용밥
+    loadJSON('my-file.json',
+             function(data) { console.log(data); },
+             function(xhr) { console.error(xhr); }
+    );
+    */
+
     //로컬스토리지 object처럼 활용
     function localStore(key, obj) {
         return window.localStorage.setItem(key, JSON.stringify(obj));
@@ -314,6 +317,15 @@ function seriesOnOff(base, option, series) {
         }
 
         return count;
+    }
+
+    //'배열 내 오브젝트'에서 "특정 value를 가진 id"를 가진 배열 불러오기
+    function indexArrKey(arr, key, value) {
+        for (var i=0;i<arr.length;i++) {
+            if (arr[i][key] === value) {
+                return arr[i];
+            }
+        }
     }
     //=================================================================================================================
     //※ 수 관련
