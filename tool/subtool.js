@@ -412,3 +412,45 @@ function seriesOnOff(base, option, series) {
             selectbox.remove(i);
         }
     }
+
+
+//====================================================================================
+//※ 기타 기능
+//====================================================================================
+//풀스크린
+
+function launchIntoFullscreen(element, callback) {
+    if(element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if(element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if(element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if(element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    } else {
+        alert("현재 브라우저는 전체화면 모드를 지원하지 않습니다.");
+        return;
+    }
+    if (callback) {
+        callback;
+    }
+}
+function exitFullscreen(callback) {
+  if(document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if(document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if(document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else {
+      alert("현재 브라우저는 전체화면 모드를 지원하지 않습니다.");
+      return;
+  }
+  if (callback) {
+      callback;
+  }
+}
+//※ 사용법
+    //활성화 : launchIntoFullscreen(document.documentElement);
+    //비활성화 : exitFullscreen();

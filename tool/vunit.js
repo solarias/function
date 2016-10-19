@@ -13,7 +13,7 @@
 
     // check capabilities
     var dummy = document.createElement('_').style,
-        units = ['vw', 'vh', 'vm', 'vmin'].filter(function (unit) {
+        units = ['vw', 'vh', 'vmax', 'vmin'].filter(function (unit) {
             dummy.width = '';
             dummy.width = '10' + unit;
             return !dummy.width;
