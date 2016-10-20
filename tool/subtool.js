@@ -418,39 +418,63 @@ function seriesOnOff(base, option, series) {
 //※ 기타 기능
 //====================================================================================
 //풀스크린
-
-function launchIntoFullscreen(element, callback) {
-    if(element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if(element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-    } else if(element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-    } else if(element.msRequestFullscreen) {
-        element.msRequestFullscreen();
-    } else {
-        alert("현재 브라우저는 전체화면 모드를 지원하지 않습니다.");
-        return;
+    //켜기
+    function launchIntoFullscreen(element, callback) {
+        //엘레멘트가 없으면 디폴트값 메꿔주기
+        if (!element) element = document.documentElement;
+        if(element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if(element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if(element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        } else {
+            alert("현재 브라우저는 전체화면 모드를 지원하지 않습니다.");
+            return;
+        }
+        if (callback) {
+            callback;
+        }
     }
-    if (callback) {
-        callback;
+    //끄기
+    function exitFullscreen(callback) {
+      if(document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if(document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if(document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else {
+          alert("현재 브라우저는 전체화면 모드를 지원하지 않습니다.");
+          return;
+      }
+      if (callback) {
+          callback;
+      }
     }
-}
-function exitFullscreen(callback) {
-  if(document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if(document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if(document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  } else {
-      alert("현재 브라우저는 전체화면 모드를 지원하지 않습니다.");
-      return;
-  }
-  if (callback) {
-      callback;
-  }
-}
-//※ 사용법
-    //활성화 : launchIntoFullscreen(document.documentElement);
-    //비활성화 : exitFullscreen();
+    //※ 사용법
+        //활성화 : launchIntoFullscreen(document.documentElement);
+        //비활성화 : exitFullscreen();
+    //풀스크린 토글
+    function toggleFullScreen() {
+      if (!document.fullscreenElement &&    // alternative standard method
+          !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+      } else {
+        if (document.cancelFullScreen) {
+          document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+        }
+      }
+    }
