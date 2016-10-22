@@ -132,6 +132,13 @@ $ad["site"] = [
 		id:"dnf_beckey",
 		blog_link:"http://blog.naver.com/ansewo/220662398108"
 	},
+	{
+		name:"아라드 운세",
+		link:"http://solarias.github.io/dnf/fortune.html",
+		type:"던전 앤 파이터",
+		id:"dnf_fortune",
+		blog_link:"http://blog.naver.com/ansewo/220662398108"
+	},
 	//====================================================================
 	//※ C-2. 일반 게임
 	//====================================================================
