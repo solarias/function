@@ -49,7 +49,7 @@ $ad["site"] = [
 	//※ C-1. 던전 앤 파이터
 	//====================================================================
 	{
-		name:"아라드 운세",
+		name:"아라드 운세 (모바일 & PC 겸용)",
 		link:"http://solarias.github.io/dnf/fortune.html",
 		type:"던전 앤 파이터",
 		id:"dnf_fortune",
