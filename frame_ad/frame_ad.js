@@ -56,6 +56,13 @@ $ad["site"] = [
 		blog_link:"http://blog.naver.com/ansewo/220662398108"
 	},
     {
+		name:"아라드 운세 (안드로이드 어플)",
+		link:"https://play.google.com/store/apps/details?id=io.github.solarias",
+		type:"던전 앤 파이터",
+		id:"dnf_fortune",
+		blog_link:"http://blog.naver.com/ansewo/220662398108"
+	},
+    {
 		name:"지옥파티 시뮬레이터",
 		link:"http://solarias.github.io/dnf/hell2.html",
 		type:"던전 앤 파이터",
