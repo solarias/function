@@ -49,6 +49,20 @@ $ad["site"] = [
 	//※ C-1. 던전 앤 파이터
 	//====================================================================
 	{
+		name:"에픽의 균열 (미니 지옥파티, 모바일 & PC 겸용)",
+		link:"https://solarias.github.io/minihell",
+		type:"던전 앤 파이터",
+		id:"dnf_minihell",
+		blog_link:"http://blog.naver.com/ansewo/220924971980"
+	},
+	{
+		name:"에픽의 균열 (미니 지옥파티, 안드로이드 어플)",
+		link:"https://play.google.com/store/apps/details?id=crakcofepic.io.github.solarias",
+		type:"던전 앤 파이터",
+		id:"dnf_minihell",
+		blog_link:"http://blog.naver.com/ansewo/220924971980"
+	},
+	{
 		name:"아라드 운세 (모바일 & PC 겸용)",
 		link:"http://solarias.github.io/dnf/fortune.html",
 		type:"던전 앤 파이터",
