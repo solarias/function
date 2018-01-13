@@ -122,24 +122,9 @@ function $$(parameter) {
 }
 
 //DOM 생성
-function Element(tagName, attributes) {
-  attributes = attributes || {};
-  tagName = tagName.toLowerCase();
-
-  if (HAS_EXTENDED_CREATE_ELEMENT_SYNTAX && attributes.name) {
-    tagName = '<' + tagName + ' name="' + attributes.name + '">';
-    delete attributes.name;
-    return Element.writeAttribute(document.createElement(tagName), attributes);
-  }
-
-  if (!ELEMENT_CACHE[tagName])
-    ELEMENT_CACHE[tagName] = Element.extend(document.createElement(tagName));
-
-  var node = shouldUseCreationCache(tagName, attributes) ?
-   ELEMENT_CACHE[tagName].cloneNode(false) : document.createElement(tagName);
-
-  return Element.writeAttribute(node, attributes);
-}
+    //사용법 : createElement(문법)
+    //# : id, . : class, [abc=def] : attribute, "abc" : text
+    (function(e){"use strict";var t="(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)",n="([\"'])((?:(?=(\\\\?))\\",r="[\\W\\w])*?)\\",i="^(?:"+t+")|^#"+t+"|^\\."+t+"|^\\["+t+"(?:([*$|~^]?=)"+n+"8"+r+"6"+")?\\]|^\\s*[\\n\\r]+([\\t]*)\\s*|^(\\s+)|^"+n+"13"+r+"11";document.createElement=function(t){var n=t.replace(/^\s+|\s+$/),r=document.createDocumentFragment(),s=[r,e.call(this,"div")];for(var o=r,u=o.appendChild(s[1]),a=1,f=true,l;n&&(l=n.match(i));){if(l[1]){o.replaceChild(u=e.call(this,l[1]),o.lastChild);if(f)s[a]=u}if(l[2])u.id=l[2];if(l[3])u.className+=(u.className?" ":"")+l[3];if(l[4])u.setAttribute(l[4],l[7]||"");if(l[9]!==undefined){a=l[9].length;o=s[a];u=s[++a]=o.appendChild(e.call(this,"div"))}if(l[10]){o=u;u=o.appendChild(e.call(this,"div"));f=false}if(l[11]){o.replaceChild(u=document.createTextNode(l[12]),o.lastChild);if(f)s[a]=u}n=n.slice(l[0].length)}return r.childNodes.length===1?r.lastChild:r}})(document.createElement)
 
 //=================================================================================================================
 //※ 함수 - 배열, 오브젝트, JSON, 로컬스토리지 등
